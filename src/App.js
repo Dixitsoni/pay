@@ -7,7 +7,7 @@ function App() {
   const [clientSecret, setClientSecret] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/payments/create-payment-intent", {
+    fetch("https://invoice-ujyy.vercel.app/api/payments/create-payment-intent", {
       method: "POST",
     })
       .then((res) => res.json())
