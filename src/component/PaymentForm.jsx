@@ -1,73 +1,76 @@
-// import { EmbeddedCheckoutProvider, EmbeddedCheckout } from
-//   "@stripe/react-stripe-js";
-// import { loadStripe } from "@stripe/stripe-js";
-
-// const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
-
-// function Checkout({ clientSecret }) {
-//   return (
-//     <EmbeddedCheckoutProvider
-//       stripe={stripePromise}
-//       options={{ clientSecret }}
-//     >
-//       <EmbeddedCheckout />
-//     </EmbeddedCheckoutProvider>
-//   );
-// }
-
-// export default Checkout;
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { validatePaymentLink, createStripeCheckout } from "../api/payment";
 
 
-import { useState } from "react";
+export default function PayInvoice() {
+  const { token } = useParams();
+  const [invoice, setInvoice] = useState(null);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
-export default function CheckoutPage() {
-  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const data = await validatePaymentLink(token);
+        if (data.message) throw new Error(data.message);
+        setInvoice(data.invoice);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, [token]);
 
-  const handleCheckout = async () => {
-    setLoading(true);
-
-    // 1️⃣ Call backend to create session
-    const res = await fetch("https://invoice-ujyy.vercel.app/api/payments/create-payment-intent", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: "user@example.com", // or get from your login system
-        name: "John Doe",
-      }),
-    });
-
-    const data = await res.json();
-
-    // 2️⃣ Redirect to Stripe Checkout
+  const handlePay = async () => {
+    const data = await createStripeCheckout(token);
     if (data.url) {
       window.location.href = data.url;
-    } else {
-      alert("Checkout session creation failed.");
-      setLoading(false);
     }
   };
 
+  if (loading) return <h3>Checking payment link...</h3>;
+  if (error) return <Expired message={error} />;
+
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h2>Complete Your Payment</h2>
-      <button
-        onClick={handleCheckout}
-        disabled={loading}
-        style={{
-          padding: "12px 24px",
-          fontSize: "16px",
-          borderRadius: "8px",
-          backgroundColor: "#5469d4",
-          color: "#fff",
-          border: "none",
-          cursor: "pointer",
-        }}
-      >
-        {loading ? "Redirecting…" : "Pay Now"}
+    <div style={styles.card}>
+      <h2>Invoice Payment</h2>
+      <p><b>Invoice ID:</b> {invoice._id}</p>
+      <p><b>Amount:</b> ₹{invoice.totalAmount}</p>
+
+      <button onClick={handlePay} style={styles.btn}>
+        Pay Now
       </button>
-      <p style={{ marginTop: "20px", fontSize: "14px", color: "#555" }}>
-        You will see Google Pay / Apple Pay if available
-      </p>
     </div>
   );
 }
+
+function Expired({ message }) {
+  return (
+    <div style={styles.card}>
+      <h2>Payment Link Invalid</h2>
+      <p>{message}</p>
+    </div>
+  );
+}
+
+const styles = {
+  card: {
+    maxWidth: 420,
+    margin: "80px auto",
+    padding: 24,
+    borderRadius: 8,
+    boxShadow: "0 4px 20px rgba(0,0,0,.1)",
+    textAlign: "center"
+  },
+  btn: {
+    padding: "12px 20px",
+    background: "#5469d4",
+    color: "#fff",
+    border: "none",
+    borderRadius: 6,
+    cursor: "pointer"
+  }
+};
