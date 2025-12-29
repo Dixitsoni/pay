@@ -18,7 +18,7 @@ export default function Success() {
 
     const confirmPayment = async () => {
       try {
-        const res = await fetch(`https://invoice-ujyy.vercel.app/api/payments/confirm/${token}`, {
+        const res = await fetch(`https://invoice-fuo7.vercel.app/api/payments/confirm/${token}`, {
           method: "POST",
         });
 
