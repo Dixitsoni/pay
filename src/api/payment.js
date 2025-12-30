@@ -1,4 +1,4 @@
-const API_BASE = "https://invoice-du4f.vercel.app/api";
+const API_BASE = "https://invoice-qgwl.vercel.app/api";
 // const API_BASE = "http://localhost:5000/api";
 
 export const validatePaymentLink = async (token) => {
