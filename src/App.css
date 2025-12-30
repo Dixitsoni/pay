@@ -1,6 +1,6 @@
-.success-page {
+.success-wrapper {
   min-height: 100vh;
-  background: linear-gradient(135deg, #ecfeff, #f0fdf4);
+  background: linear-gradient(135deg, #eef2ff, #f8fafc);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,67 +11,42 @@
   background: #ffffff;
   max-width: 420px;
   width: 100%;
-  padding: 40px;
-  border-radius: 18px;
+  padding: 32px;
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 .success-icon {
   width: 72px;
   height: 72px;
-  margin: 0 auto;
-  border-radius: 50%;
   background: #22c55e;
   color: #ffffff;
   font-size: 36px;
   font-weight: bold;
+  border-radius: 50%;
+  margin: 0 auto 20px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .success-title {
-  margin-top: 24px;
   font-size: 26px;
   font-weight: 700;
-  color: #0f172a;
+  margin-bottom: 10px;
+  color: #111827;
 }
 
-.success-text {
-  margin-top: 12px;
-  font-size: 16px;
-  color: #475569;
-  line-height: 1.5;
+.success-subtitle {
+  font-size: 15px;
+  color: #6b7280;
+  margin-bottom: 24px;
 }
 
-.success-info {
-  margin-top: 20px;
-  background: #f8fafc;
-  padding: 16px;
-  border-radius: 12px;
-  text-align: left;
-}
+.success-details {
+  bac
 
-.success-info p {
-  font-size: 14px;
-  color: #334155;
-  margin-bottom: 8px;
-}
-
-.success-button {
-  margin-top: 28px;
-  width: 100%;
-  padding: 14px;
-  background: #22c55e;
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: 600;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
 
 .success-button:hover {
   background: #16a34a;

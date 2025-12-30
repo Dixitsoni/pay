@@ -40,9 +40,33 @@ export default function Success() {
   if (error) return <h2>{error}</h2>;
 
   return (
-    <div className="success-page">
-      <h1>Payment Successful</h1>
-      <p>Invoice #{invoice._id} paid successfully. Amount: ₹{invoice.totalAmount}</p>
+    <div className="success-wrapper">
+      <div className="success-card">
+        <div className="success-icon">
+          ✓
+        </div>
+
+        <h1 className="success-title">Payment Successful</h1>
+
+        <p className="success-subtitle">
+          Thank you! Your payment has been processed successfully.
+        </p>
+
+        <div className="success-details">
+          <div className="detail-row">
+            <span>Invoice ID</span>
+            <strong>#{invoice._id}</strong>
+          </div>
+          <div className="detail-row">
+            <span>Amount Paid</span>
+            <strong>₹{invoice.totalAmount}</strong>
+          </div>
+        </div>
+
+        <p className="success-note">
+          A payment confirmation has been sent to your email.
+        </p>
+      </div>
     </div>
   );
 }

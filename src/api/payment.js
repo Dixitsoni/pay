@@ -1,4 +1,5 @@
-const API_BASE = "https://invoice-fuo7.vercel.app/api";
+const API_BASE = "https://invoice-du4f.vercel.app/api";
+// const API_BASE = "http://localhost:5000/api";
 
 export const validatePaymentLink = async (token) => {
   const res = await fetch(`${API_BASE}/payments/validate/${token}`);

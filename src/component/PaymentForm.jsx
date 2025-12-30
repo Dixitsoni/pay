@@ -13,6 +13,7 @@ export default function PayInvoice() {
     const load = async () => {
       try {
         const data = await validatePaymentLink(token);
+        console.log(data)
         if (data.message) throw new Error(data.message);
         setInvoice(data.invoice);
       } catch (err) {
