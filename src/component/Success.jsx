@@ -54,8 +54,8 @@ export default function Success() {
 
         <div className="success-details">
           <div className="detail-row">
-            <span>Invoice ID</span>
-            <strong>#{invoice._id}</strong>
+            <span>Invoice ID# : </span>
+            <strong>{invoice._id}</strong>
           </div>
           <div className="detail-row">
             <span>Amount Paid</span>
